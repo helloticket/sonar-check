@@ -47,7 +47,7 @@ var Check = &cli.Command{
 					return err
 				}
 
-				if skip := os.Getenv("SONAR_SKIP"); skip == "true" {
+				if skip := os.Getenv("SONARQUBE_SKIP"); skip == "true" {
 					fmt.Println("skipped check")
 					return nil
 				}
@@ -73,17 +73,17 @@ var Check = &cli.Command{
 func makeClient(c *cli.Context) (*sonarcheck.SonarClient, error) {
 	host := c.String("url")
 	if host == "" {
-		host = os.Getenv("SONAR_URL")
+		host = os.Getenv("SONARQUBE_URL")
 	}
 
 	token := c.String("token")
 	if token == "" {
-		token = os.Getenv("SONAR_TOKEN")
+		token = os.Getenv("SONARQUBE_TOKEN")
 	}
 
 	projectId := c.String("project_id")
 	if projectId == "" {
-		host = os.Getenv("SONAR_PROJECT_ID")
+		host = os.Getenv("SONARQUBE_PROJECT_ID")
 	}
 
 	if host == "" || token == "" || projectId == "" {
