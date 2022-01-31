@@ -42,14 +42,14 @@ var Check = &cli.Command{
 				},
 			},
 			Action: func(c *cli.Context) error {
-				request, err := makeClient(c)
-				if err != nil {
-					return err
-				}
-
 				if skip := os.Getenv("SONARQUBE_SKIP"); skip == "true" {
 					fmt.Println("skipped check")
 					return nil
+				}
+
+				request, err := makeClient(c)
+				if err != nil {
+					return err
 				}
 
 				chk := eval.NewEvalBugVulnerability(request)
